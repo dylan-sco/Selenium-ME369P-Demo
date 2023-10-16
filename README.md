@@ -7,7 +7,7 @@
 4. Run the `scrape.py` file
 
 ## How does it work?
-The python script opens a [wikipedia page](https://en.wikipedia.org/wiki/List_of_National_Basketball_Association_career_scoring_leaders) for the NBA's career scoring leaders. 
+The selenium webdriver opens a [wikipedia page](https://en.wikipedia.org/wiki/List_of_National_Basketball_Association_career_scoring_leaders) for the NBA's career scoring leaders. 
 
 Next, selenium navigates to the scoring leaders table and scrapes the following attributes: Player Name, Total points, Games played, and Points per game.
 
