@@ -1,25 +1,29 @@
 # Selenium Scraper Demo -- ME369P
-# simple tutorial reference: https://www.youtube.com/watch?v=UOsRrxMKJYk
-# wikipedia scraping reference: https://www.youtube.com/watch?v=jdj6IC7Pi0I
+# original code
 
-
-# imports
+# selenium imports
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+
+# additional imports
 import pandas as pd
-import re
 import matplotlib.pyplot as plt
 import numpy as np
+import re
+import time
 
 
+# scrape function
 def scrape():
     # create variables
-    website_url = 'https://en.wikipedia.org/wiki/List_of_National_Basketball_Association_career_scoring_leaders'
     player_name = []
     total_points = []
     games_played = []
     points_per_game = []
+
+    # select URL
+    website_url = 'https://en.wikipedia.org/wiki/List_of_National_Basketball_Association_career_scoring_leaders'
 
     # create driver
     browser_options = Options()
@@ -29,6 +33,11 @@ def scrape():
 
     # maximize the chrome window
     driver.maximize_window()
+    time.sleep(1)
+
+    # demo scrolling down the page
+    driver.execute_script("window.scrollTo(0, 750)")
+    time.sleep(1)
 
     # create locators
     # xpath is the XML path on the wikipedia page where the element information is stored
@@ -70,7 +79,7 @@ def scrape():
     # plot data results
     display_data(df, player_name, total_points)
 
-
+# display a chart of the data
 def display_data(df, player_name, total_points):
     # plot the top 5 scoring leaders by points
     names = player_name[:5]
@@ -80,11 +89,11 @@ def display_data(df, player_name, total_points):
 
     fig, ax = plt.subplots()
 
-    hbars = ax.barh(y_pos, points, align='center')
+    # create horizontal bar chart
+    hbars = ax.barh(y_pos, points, align='center', color='pink')
     ax.set_yticks(y_pos, labels=names)
     ax.invert_yaxis()  # labels read top-to-bottom
-    ax.set_xlabel('Player Name')
-    ax.set_ylabel('Total Points')
+    ax.set_xlabel('Total Points')
     ax.set_title('NBA Top 5 Scoring Leaders')
 
     # Label with specially formatted floats
@@ -93,9 +102,6 @@ def display_data(df, player_name, total_points):
     fig.subplots_adjust(left=0.25)
 
     plt.show()
-
-    plt.show()
-
 
 if __name__ == "__main__":
     scrape()
